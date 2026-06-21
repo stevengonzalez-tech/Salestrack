@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { createClient } from '@/lib/supabase/client'
 import type { UserRole } from '@/lib/types'
 
 interface RoleSelectorProps {
@@ -16,27 +15,40 @@ const roles: { value: UserRole; label: string }[] = [
 ]
 
 export default function RoleSelector({ userId, currentRole }: RoleSelectorProps) {
-  const supabase = createClient()
   const [role, setRole] = useState<UserRole>(currentRole)
   const [saving, setSaving] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   async function handleChange(newRole: UserRole) {
     setSaving(true)
-    await supabase.from('profiles').update({ role: newRole }).eq('id', userId)
-    setRole(newRole)
+    setError(null)
+    const res = await fetch('/api/team/role', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId, role: newRole }),
+    })
+    if (res.ok) {
+      setRole(newRole)
+    } else {
+      setError('Error al cambiar rol')
+    }
     setSaving(false)
   }
 
   return (
-    <select
-      value={role}
-      disabled={saving}
-      onChange={(e) => handleChange(e.target.value as UserRole)}
-      className="input py-1 text-sm w-36"
-    >
-      {roles.map((r) => (
-        <option key={r.value} value={r.value}>{r.label}</option>
-      ))}
-    </select>
+    <div className="flex items-center gap-2">
+      <select
+        value={role}
+        disabled={saving}
+        onChange={(e) => handleChange(e.target.value as UserRole)}
+        className="input py-1 text-sm w-40"
+      >
+        {roles.map((r) => (
+          <option key={r.value} value={r.value}>{r.label}</option>
+        ))}
+      </select>
+      {saving && <span className="text-xs text-slate-400">Guardando…</span>}
+      {error && <span className="text-xs text-red-500">{error}</span>}
+    </div>
   )
 }
