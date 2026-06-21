@@ -5,6 +5,7 @@ import SalesChart from '@/components/dashboard/SalesChart'
 import RecentActivity from '@/components/dashboard/RecentActivity'
 import { formatCurrency } from '@/lib/utils'
 
+export const dynamic = 'force-dynamic'
 export const metadata: Metadata = { title: 'Dashboard' }
 
 export default async function DashboardPage() {
