@@ -15,7 +15,7 @@ export default function LoginPage() {
           </svg>
         </div>
         <h1 className="text-2xl font-bold text-slate-900">SalesTrack Pro</h1>
-        <p className="mt-1 text-sm text-slate-500">Sign in to your workspace</p>
+        <p className="mt-1 text-sm text-slate-500">Inicia sesión en tu espacio de trabajo</p>
       </div>
       <LoginForm />
     </div>

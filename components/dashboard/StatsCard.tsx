@@ -30,7 +30,7 @@ export default function StatsCard({ title, value, change, icon, color = 'blue' }
               'text-xs mt-2 font-medium',
               isPositive ? 'text-emerald-600' : 'text-red-500'
             )}>
-              {isPositive ? '+' : ''}{change}% vs last month
+              {isPositive ? '+' : ''}{change}% vs mes anterior
             </p>
           )}
         </div>

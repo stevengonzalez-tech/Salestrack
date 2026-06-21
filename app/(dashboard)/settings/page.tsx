@@ -18,25 +18,25 @@ export default async function SettingsPage() {
   return (
     <div className="space-y-6 max-w-3xl mx-auto">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">Settings</h1>
-        <p className="text-sm text-slate-500 mt-1">Manage your workspace configuration</p>
+        <h1 className="text-2xl font-bold text-slate-900">Configuración</h1>
+        <p className="text-sm text-slate-500 mt-1">Administra la configuración de tu espacio</p>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Account</CardTitle>
+          <CardTitle>Cuenta</CardTitle>
         </CardHeader>
         <dl className="space-y-4">
           <div className="flex justify-between text-sm">
-            <dt className="text-slate-500">Name</dt>
+            <dt className="text-slate-500">Nombre</dt>
             <dd className="font-medium text-slate-900">{profile?.full_name}</dd>
           </div>
           <div className="flex justify-between text-sm">
-            <dt className="text-slate-500">Email</dt>
+            <dt className="text-slate-500">Correo</dt>
             <dd className="font-medium text-slate-900">{profile?.email}</dd>
           </div>
           <div className="flex justify-between text-sm">
-            <dt className="text-slate-500">Role</dt>
+            <dt className="text-slate-500">Rol</dt>
             <dd>
               <Badge variant="danger">
                 {profile?.role?.charAt(0).toUpperCase() + profile?.role?.slice(1)}
@@ -48,7 +48,7 @@ export default async function SettingsPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Workspace</CardTitle>
+          <CardTitle>Espacio de Trabajo</CardTitle>
         </CardHeader>
         <div className="space-y-4 text-sm text-slate-600">
           <div className="flex justify-between">
@@ -68,15 +68,15 @@ export default async function SettingsPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Role Permissions</CardTitle>
+          <CardTitle>Permisos por Rol</CardTitle>
         </CardHeader>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-slate-200">
-                <th className="text-left py-2 pr-4 font-medium text-slate-600">Feature</th>
-                <th className="text-center py-2 px-4 font-medium text-slate-600">Agent</th>
-                <th className="text-center py-2 px-4 font-medium text-slate-600">Leader</th>
+                <th className="text-left py-2 pr-4 font-medium text-slate-600">Función</th>
+                <th className="text-center py-2 px-4 font-medium text-slate-600">Agente</th>
+                <th className="text-center py-2 px-4 font-medium text-slate-600">Líder</th>
                 <th className="text-center py-2 px-4 font-medium text-slate-600">Admin</th>
               </tr>
             </thead>

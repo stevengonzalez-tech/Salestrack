@@ -27,7 +27,7 @@ export default function Header({ profile, onSignOut, title }: HeaderProps) {
         <button
           onClick={onSignOut}
           className="p-2 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
-          title="Sign out"
+          title="Cerrar sesión"
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}

@@ -15,7 +15,7 @@ interface NavItem {
 const navItems: NavItem[] = [
   {
     href: '/dashboard',
-    label: 'Dashboard',
+    label: 'Panel',
     roles: ['admin', 'leader', 'agent'],
     icon: (
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -26,7 +26,7 @@ const navItems: NavItem[] = [
   },
   {
     href: '/leads',
-    label: 'Leads',
+    label: 'Prospectos',
     roles: ['admin', 'leader', 'agent'],
     icon: (
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -37,7 +37,7 @@ const navItems: NavItem[] = [
   },
   {
     href: '/deals',
-    label: 'Deals',
+    label: 'Negocios',
     roles: ['admin', 'leader', 'agent'],
     icon: (
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -48,7 +48,7 @@ const navItems: NavItem[] = [
   },
   {
     href: '/contacts',
-    label: 'Contacts',
+    label: 'Contactos',
     roles: ['admin', 'leader', 'agent'],
     icon: (
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -58,8 +58,19 @@ const navItems: NavItem[] = [
     ),
   },
   {
+    href: '/tasks',
+    label: 'Gestiones Diarias',
+    roles: ['admin', 'leader', 'agent'],
+    icon: (
+      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+          d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+      </svg>
+    ),
+  },
+  {
     href: '/reports',
-    label: 'Reports',
+    label: 'Reportes',
     roles: ['admin', 'leader'],
     icon: (
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -70,7 +81,7 @@ const navItems: NavItem[] = [
   },
   {
     href: '/team',
-    label: 'Team',
+    label: 'Equipo',
     roles: ['admin', 'leader'],
     icon: (
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -81,7 +92,7 @@ const navItems: NavItem[] = [
   },
   {
     href: '/settings',
-    label: 'Settings',
+    label: 'Configuración',
     roles: ['admin'],
     icon: (
       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -113,7 +124,7 @@ export default function Sidebar({ role }: SidebarProps) {
         </div>
         <div>
           <p className="text-sm font-bold text-white">SalesTrack Pro</p>
-          <p className="text-xs text-slate-400 capitalize">{role}</p>
+          <p className="text-xs text-slate-400 capitalize">{role === 'admin' ? 'Administrador' : role === 'leader' ? 'Líder' : 'Agente'}</p>
         </div>
       </div>
 

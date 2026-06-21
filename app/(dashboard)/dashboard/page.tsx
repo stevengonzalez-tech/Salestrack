@@ -36,13 +36,13 @@ export default async function DashboardPage() {
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">Dashboard</h1>
-        <p className="text-sm text-slate-500 mt-1">Welcome back — here's your sales overview</p>
+        <h1 className="text-2xl font-bold text-slate-900">Panel Principal</h1>
+        <p className="text-sm text-slate-500 mt-1">Bienvenido — aquí está tu resumen de ventas</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         <StatsCard
-          title="Total Leads"
+          title="Total Prospectos"
           value={leads.length}
           change={leadsThisMonth}
           color="blue"
@@ -54,7 +54,7 @@ export default async function DashboardPage() {
           }
         />
         <StatsCard
-          title="Active Deals"
+          title="Negocios Activos"
           value={deals.filter((d) => !['closed_won','closed_lost'].includes(d.stage)).length}
           color="purple"
           icon={
@@ -65,7 +65,7 @@ export default async function DashboardPage() {
           }
         />
         <StatsCard
-          title="Revenue This Month"
+          title="Ingresos del Mes"
           value={formatCurrency(revenueThisMonth)}
           color="green"
           icon={
@@ -76,7 +76,7 @@ export default async function DashboardPage() {
           }
         />
         <StatsCard
-          title="Conversion Rate"
+          title="Tasa de Conversión"
           value={`${conversionRate}%`}
           color="amber"
           icon={

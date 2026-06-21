@@ -42,16 +42,16 @@ export default function DealsPage() {
     <div className="space-y-6 max-w-full">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Deals</h1>
+          <h1 className="text-2xl font-bold text-slate-900">Negocios</h1>
           <p className="text-sm text-slate-500 mt-1">
-            {deals.length} deals · Pipeline: {formatCurrency(totalValue)}
+            {deals.length} negocios · Pipeline: {formatCurrency(totalValue)}
           </p>
         </div>
         <Button onClick={openCreate}>
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
           </svg>
-          New Deal
+          Nuevo Negocio
         </Button>
       </div>
 
@@ -66,7 +66,7 @@ export default function DealsPage() {
       <Modal
         open={modalOpen}
         onClose={() => setModalOpen(false)}
-        title={editing ? 'Edit Deal' : 'New Deal'}
+        title={editing ? 'Edit Deal' : 'Nuevo Negocio'}
         size="md"
       >
         <DealForm

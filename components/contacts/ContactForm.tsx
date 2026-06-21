@@ -34,7 +34,7 @@ export default function ContactForm({ initial, onSubmit, onCancel }: ContactForm
     try {
       await onSubmit(form)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong')
+      setError(err instanceof Error ? err.message : 'Algo salió mal')
     } finally {
       setLoading(false)
     }
@@ -43,21 +43,21 @@ export default function ContactForm({ initial, onSubmit, onCancel }: ContactForm
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid grid-cols-2 gap-4">
-        <Input label="Full name" required value={form.full_name}
+        <Input label="Nombre completo" required value={form.full_name}
           onChange={(e) => update('full_name', e.target.value)} />
         <Input label="Email" type="email" required value={form.email}
           onChange={(e) => update('email', e.target.value)} />
       </div>
       <div className="grid grid-cols-2 gap-4">
-        <Input label="Phone" value={form.phone}
+        <Input label="Teléfono" value={form.phone}
           onChange={(e) => update('phone', e.target.value)} />
-        <Input label="Company" value={form.company}
+        <Input label="Empresa" value={form.company}
           onChange={(e) => update('company', e.target.value)} />
       </div>
-      <Input label="Position" value={form.position}
-        onChange={(e) => update('position', e.target.value)} placeholder="e.g. VP of Sales" />
+      <Input label="Cargo" value={form.position}
+        onChange={(e) => update('position', e.target.value)} placeholder="Ej: VP de Ventas" />
       <div>
-        <label className="label">Notes</label>
+        <label className="label">Notas</label>
         <textarea className="input min-h-[80px] resize-none" value={form.notes}
           onChange={(e) => update('notes', e.target.value)} />
       </div>
@@ -65,9 +65,9 @@ export default function ContactForm({ initial, onSubmit, onCancel }: ContactForm
       {error && <p className="text-sm text-red-600">{error}</p>}
 
       <div className="flex justify-end gap-3 pt-2">
-        <Button type="button" variant="secondary" onClick={onCancel}>Cancel</Button>
+        <Button type="button" variant="secondary" onClick={onCancel}>Cancelar</Button>
         <Button type="submit" loading={loading}>
-          {initial?.id ? 'Save changes' : 'Create contact'}
+          {initial?.id ? 'Guardar cambios' : 'Crear contacto'}
         </Button>
       </div>
     </form>

@@ -26,17 +26,17 @@ export default async function TeamPage() {
   return (
     <div className="space-y-6 max-w-5xl mx-auto">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">Team</h1>
-        <p className="text-sm text-slate-500 mt-1">{profiles.length} members</p>
+        <h1 className="text-2xl font-bold text-slate-900">Equipo</h1>
+        <p className="text-sm text-slate-500 mt-1">{profiles.length} miembros</p>
       </div>
 
       <div className="card overflow-hidden" style={{ padding: 0 }}>
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-slate-200 bg-slate-50">
-              <th className="text-left px-6 py-3 font-medium text-slate-600">Member</th>
-              <th className="text-left px-6 py-3 font-medium text-slate-600">Role</th>
-              <th className="text-left px-6 py-3 font-medium text-slate-600">Joined</th>
+              <th className="text-left px-6 py-3 font-medium text-slate-600">Miembro</th>
+              <th className="text-left px-6 py-3 font-medium text-slate-600">Rol</th>
+              <th className="text-left px-6 py-3 font-medium text-slate-600">Ingresó</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
@@ -63,7 +63,7 @@ export default async function TeamPage() {
             ))}
             {profiles.length === 0 && (
               <tr>
-                <td colSpan={3} className="px-6 py-12 text-center text-slate-400">No team members found</td>
+                <td colSpan={3} className="px-6 py-12 text-center text-slate-400">Sin miembros en el equipo</td>
               </tr>
             )}
           </tbody>

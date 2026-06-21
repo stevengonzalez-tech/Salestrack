@@ -25,8 +25,8 @@ export default function SalesChart() {
     <div className="card p-6">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h3 className="text-base font-semibold text-slate-900">Revenue Overview</h3>
-          <p className="text-sm text-slate-500 mt-0.5">Monthly closed revenue</p>
+          <h3 className="text-base font-semibold text-slate-900">Resumen de Ingresos</h3>
+          <p className="text-sm text-slate-500 mt-0.5">Ingresos cerrados por mes</p>
         </div>
       </div>
       <ResponsiveContainer width="100%" height={240}>
@@ -52,7 +52,7 @@ export default function SalesChart() {
             width={48}
           />
           <Tooltip
-            formatter={(value: number) => [formatCurrency(value), 'Revenue']}
+            formatter={(value: number) => [formatCurrency(value), 'Ingresos']}
             contentStyle={{
               borderRadius: '8px',
               border: '1px solid #e2e8f0',

@@ -35,7 +35,7 @@ export default function LeadForm({ initial, onSubmit, onCancel }: LeadFormProps)
     try {
       await onSubmit(form)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong')
+      setError(err instanceof Error ? err.message : 'Algo salió mal')
     } finally {
       setLoading(false)
     }
@@ -44,32 +44,32 @@ export default function LeadForm({ initial, onSubmit, onCancel }: LeadFormProps)
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid grid-cols-2 gap-4">
-        <Input label="Full name" required value={form.full_name}
+        <Input label="Nombre completo" required value={form.full_name}
           onChange={(e) => update('full_name', e.target.value)} />
         <Input label="Email" type="email" required value={form.email}
           onChange={(e) => update('email', e.target.value)} />
       </div>
       <div className="grid grid-cols-2 gap-4">
-        <Input label="Phone" value={form.phone}
+        <Input label="Teléfono" value={form.phone}
           onChange={(e) => update('phone', e.target.value)} />
-        <Input label="Company" value={form.company}
+        <Input label="Empresa" value={form.company}
           onChange={(e) => update('company', e.target.value)} />
       </div>
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="label">Status</label>
+          <label className="label">Estado</label>
           <select className="input" value={form.status} onChange={(e) => update('status', e.target.value)}>
-            <option value="new">New</option>
-            <option value="contacted">Contacted</option>
-            <option value="qualified">Qualified</option>
-            <option value="unqualified">Unqualified</option>
+            <option value="new">Nuevo</option>
+            <option value="contacted">Contactado</option>
+            <option value="qualified">Calificado</option>
+            <option value="unqualified">No calificado</option>
           </select>
         </div>
-        <Input label="Source" value={form.source}
-          onChange={(e) => update('source', e.target.value)} placeholder="e.g. LinkedIn" />
+        <Input label="Fuente" value={form.source}
+          onChange={(e) => update('source', e.target.value)} placeholder="Ej: LinkedIn" />
       </div>
       <div>
-        <label className="label">Notes</label>
+        <label className="label">Notas</label>
         <textarea
           className="input min-h-[80px] resize-none"
           value={form.notes}
@@ -80,9 +80,9 @@ export default function LeadForm({ initial, onSubmit, onCancel }: LeadFormProps)
       {error && <p className="text-sm text-red-600">{error}</p>}
 
       <div className="flex justify-end gap-3 pt-2">
-        <Button type="button" variant="secondary" onClick={onCancel}>Cancel</Button>
+        <Button type="button" variant="secondary" onClick={onCancel}>Cancelar</Button>
         <Button type="submit" loading={loading}>
-          {initial ? 'Save changes' : 'Create lead'}
+          {initial ? 'Guardar cambios' : 'Crear prospecto'}
         </Button>
       </div>
     </form>

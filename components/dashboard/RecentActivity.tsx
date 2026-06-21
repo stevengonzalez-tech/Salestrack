@@ -6,19 +6,19 @@ interface RecentActivityProps {
 }
 
 const typeConfig = {
-  call:              { label: 'Call',       color: 'bg-blue-100 text-blue-600' },
+  call:              { label: 'Llamada',    color: 'bg-blue-100 text-blue-600' },
   email:             { label: 'Email',      color: 'bg-purple-100 text-purple-600' },
-  meeting:           { label: 'Meeting',    color: 'bg-amber-100 text-amber-600' },
-  note:              { label: 'Note',       color: 'bg-slate-100 text-slate-600' },
-  deal_stage_change: { label: 'Stage',      color: 'bg-emerald-100 text-emerald-600' },
+  meeting:           { label: 'Reunión',    color: 'bg-amber-100 text-amber-600' },
+  note:              { label: 'Nota',       color: 'bg-slate-100 text-slate-600' },
+  deal_stage_change: { label: 'Etapa',      color: 'bg-emerald-100 text-emerald-600' },
 }
 
 export default function RecentActivity({ activities }: RecentActivityProps) {
   return (
     <div className="card p-6">
-      <h3 className="text-base font-semibold text-slate-900 mb-4">Recent Activity</h3>
+      <h3 className="text-base font-semibold text-slate-900 mb-4">Actividad Reciente</h3>
       {activities.length === 0 ? (
-        <p className="text-sm text-slate-400 text-center py-8">No recent activity</p>
+        <p className="text-sm text-slate-400 text-center py-8">Sin actividad reciente</p>
       ) : (
         <ul className="space-y-4">
           {activities.map((a) => {

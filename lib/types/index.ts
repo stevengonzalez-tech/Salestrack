@@ -90,3 +90,13 @@ export interface DashboardStats {
   revenue_total: number
   conversion_rate: number
 }
+
+export interface DailyCheck {
+  id: string
+  user_id: string
+  check_date: string
+  task_type: string
+  quantity: number
+  notes: string | null
+  created_at: string
+}

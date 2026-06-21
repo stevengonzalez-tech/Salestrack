@@ -5,12 +5,12 @@ import Badge from '@/components/ui/Badge'
 import type { Deal, DealStage } from '@/lib/types'
 
 const stages: { key: DealStage; label: string }[] = [
-  { key: 'prospecting',   label: 'Prospecting' },
-  { key: 'qualification', label: 'Qualification' },
-  { key: 'proposal',      label: 'Proposal' },
-  { key: 'negotiation',   label: 'Negotiation' },
-  { key: 'closed_won',    label: 'Won' },
-  { key: 'closed_lost',   label: 'Lost' },
+  { key: 'prospecting',   label: 'Prospección' },
+  { key: 'qualification', label: 'Calificación' },
+  { key: 'proposal',      label: 'Propuesta' },
+  { key: 'negotiation',   label: 'Negociación' },
+  { key: 'closed_won',    label: 'Ganado' },
+  { key: 'closed_lost',   label: 'Perdido' },
 ]
 
 const stageColor: Record<DealStage, 'default' | 'info' | 'warning' | 'purple' | 'success' | 'danger'> = {
@@ -58,7 +58,7 @@ export default function KanbanBoard({ deals, onEdit, onStageChange }: KanbanBoar
                   <p className="text-lg font-bold text-brand-600 mt-1">{formatCurrency(deal.value)}</p>
                   {deal.expected_close_date && (
                     <p className="text-xs text-slate-400 mt-2">
-                      Closes {new Date(deal.expected_close_date).toLocaleDateString()}
+                      Cierra {new Date(deal.expected_close_date).toLocaleDateString()}
                     </p>
                   )}
                   <div className="flex gap-1 mt-3 flex-wrap">

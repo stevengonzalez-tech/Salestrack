@@ -44,20 +44,20 @@ export default function LeadsPage() {
     <div className="space-y-6 max-w-7xl mx-auto">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Leads</h1>
-          <p className="text-sm text-slate-500 mt-1">{leads.length} total leads</p>
+          <h1 className="text-2xl font-bold text-slate-900">Prospectos</h1>
+          <p className="text-sm text-slate-500 mt-1">{leads.length} prospectos en total</p>
         </div>
         <Button onClick={openCreate}>
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
           </svg>
-          New Lead
+          Nuevo Prospecto
         </Button>
       </div>
 
       <input
         className="input max-w-xs"
-        placeholder="Search leads…"
+        placeholder="Buscar prospectos…"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
@@ -68,7 +68,7 @@ export default function LeadsPage() {
         </div>
       ) : filtered.length === 0 ? (
         <div className="text-center py-12">
-          <p className="text-slate-400">No leads found</p>
+          <p className="text-slate-400">Sin prospectos</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -81,7 +81,7 @@ export default function LeadsPage() {
       <Modal
         open={modalOpen}
         onClose={() => setModalOpen(false)}
-        title={editing ? 'Edit Lead' : 'New Lead'}
+        title={editing ? 'Editar Prospecto' : 'Nuevo Prospecto'}
         size="lg"
       >
         <LeadForm

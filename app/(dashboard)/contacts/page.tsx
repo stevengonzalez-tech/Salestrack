@@ -43,7 +43,7 @@ export default function ContactsPage() {
   }
 
   async function handleDelete(id: string) {
-    if (confirm('Delete this contact?')) {
+    if (confirm('¿Eliminar este contacto?')) {
       await supabase.from('contacts').delete().eq('id', id)
       fetchContacts()
     }
@@ -53,18 +53,18 @@ export default function ContactsPage() {
     <div className="space-y-6 max-w-7xl mx-auto">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Contacts</h1>
-          <p className="text-sm text-slate-500 mt-1">{contacts.length} total contacts</p>
+          <h1 className="text-2xl font-bold text-slate-900">Contactos</h1>
+          <p className="text-sm text-slate-500 mt-1">{contacts.length} contactos en total</p>
         </div>
         <Button onClick={() => { setEditing(null); setModalOpen(true) }}>
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
           </svg>
-          New Contact
+          Nuevo Contacto
         </Button>
       </div>
 
-      <input className="input max-w-xs" placeholder="Search contacts…"
+      <input className="input max-w-xs" placeholder="Buscar contactos…"
         value={search} onChange={(e) => setSearch(e.target.value)} />
 
       {loading ? (
@@ -76,10 +76,10 @@ export default function ContactsPage() {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-slate-200 bg-slate-50">
-                <th className="text-left px-6 py-3 font-medium text-slate-600">Name</th>
-                <th className="text-left px-6 py-3 font-medium text-slate-600">Company</th>
-                <th className="text-left px-6 py-3 font-medium text-slate-600">Position</th>
-                <th className="text-left px-6 py-3 font-medium text-slate-600">Added</th>
+                <th className="text-left px-6 py-3 font-medium text-slate-600">Nombre</th>
+                <th className="text-left px-6 py-3 font-medium text-slate-600">Empresa</th>
+                <th className="text-left px-6 py-3 font-medium text-slate-600">Cargo</th>
+                <th className="text-left px-6 py-3 font-medium text-slate-600">Agregado</th>
                 <th className="px-6 py-3" />
               </tr>
             </thead>
@@ -119,7 +119,7 @@ export default function ContactsPage() {
               {filtered.length === 0 && (
                 <tr>
                   <td colSpan={5} className="px-6 py-12 text-center text-slate-400">
-                    No contacts found
+                    Sin contactos
                   </td>
                 </tr>
               )}
@@ -129,7 +129,7 @@ export default function ContactsPage() {
       )}
 
       <Modal open={modalOpen} onClose={() => setModalOpen(false)}
-        title={editing ? 'Edit Contact' : 'New Contact'} size="lg">
+        title={editing ? 'Editar Contacto' : 'Nuevo Contacto'} size="lg">
         <ContactForm
           initial={editing ?? undefined}
           onSubmit={handleSubmit}

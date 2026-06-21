@@ -55,21 +55,21 @@ export default async function ReportsPage() {
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">Reports</h1>
-        <p className="text-sm text-slate-500 mt-1">Sales performance overview</p>
+        <h1 className="text-2xl font-bold text-slate-900">Reportes</h1>
+        <p className="text-sm text-slate-500 mt-1">Resumen de rendimiento de ventas</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <Card>
-          <p className="text-sm text-slate-500">Total Revenue</p>
+          <p className="text-sm text-slate-500">Ingresos Totales</p>
           <p className="text-3xl font-bold text-emerald-600 mt-1">{formatCurrency(totalRevenue)}</p>
         </Card>
         <Card>
-          <p className="text-sm text-slate-500">Pipeline Value</p>
+          <p className="text-sm text-slate-500">Valor del Pipeline</p>
           <p className="text-3xl font-bold text-brand-600 mt-1">{formatCurrency(pipelineValue)}</p>
         </Card>
         <Card>
-          <p className="text-sm text-slate-500">Win Rate</p>
+          <p className="text-sm text-slate-500">Tasa de Cierre</p>
           <p className="text-3xl font-bold text-slate-900 mt-1">{winRate}%</p>
         </Card>
       </div>
@@ -77,7 +77,7 @@ export default async function ReportsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
-            <CardTitle>Leads by Status</CardTitle>
+            <CardTitle>Prospectos por Estado</CardTitle>
           </CardHeader>
           <div className="space-y-3">
             {leadsByStatus.map(({ status, count }) => (
@@ -99,7 +99,7 @@ export default async function ReportsPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Deals by Stage</CardTitle>
+            <CardTitle>Negocios por Etapa</CardTitle>
           </CardHeader>
           <div className="space-y-3">
             {dealsByStage.map(({ stage, count, value }) => (

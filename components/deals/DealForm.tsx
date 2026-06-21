@@ -33,7 +33,7 @@ export default function DealForm({ initial, onSubmit, onCancel }: DealFormProps)
     try {
       await onSubmit({ ...form, value: Number(form.value) })
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong')
+      setError(err instanceof Error ? err.message : 'Algo salió mal')
     } finally {
       setLoading(false)
     }
@@ -41,27 +41,27 @@ export default function DealForm({ initial, onSubmit, onCancel }: DealFormProps)
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <Input label="Deal title" required value={form.title}
+      <Input label="Título del negocio" required value={form.title}
         onChange={(e) => update('title', e.target.value)} />
       <div className="grid grid-cols-2 gap-4">
-        <Input label="Value ($)" type="number" min={0} required value={form.value}
+        <Input label="Valor ($)" type="number" min={0} required value={form.value}
           onChange={(e) => update('value', e.target.value)} />
         <div>
-          <label className="label">Stage</label>
+          <label className="label">Etapa</label>
           <select className="input" value={form.stage} onChange={(e) => update('stage', e.target.value)}>
-            <option value="prospecting">Prospecting</option>
-            <option value="qualification">Qualification</option>
-            <option value="proposal">Proposal</option>
-            <option value="negotiation">Negotiation</option>
-            <option value="closed_won">Won</option>
-            <option value="closed_lost">Lost</option>
+            <option value="prospecting">Prospección</option>
+            <option value="qualification">Calificación</option>
+            <option value="proposal">Propuesta</option>
+            <option value="negotiation">Negociación</option>
+            <option value="closed_won">Ganado</option>
+            <option value="closed_lost">Perdido</option>
           </select>
         </div>
       </div>
-      <Input label="Expected close date" type="date" value={form.expected_close_date}
+      <Input label="Fecha estimada de cierre" type="date" value={form.expected_close_date}
         onChange={(e) => update('expected_close_date', e.target.value)} />
       <div>
-        <label className="label">Notes</label>
+        <label className="label">Notas</label>
         <textarea className="input min-h-[80px] resize-none" value={form.notes}
           onChange={(e) => update('notes', e.target.value)} />
       </div>
@@ -69,9 +69,9 @@ export default function DealForm({ initial, onSubmit, onCancel }: DealFormProps)
       {error && <p className="text-sm text-red-600">{error}</p>}
 
       <div className="flex justify-end gap-3 pt-2">
-        <Button type="button" variant="secondary" onClick={onCancel}>Cancel</Button>
+        <Button type="button" variant="secondary" onClick={onCancel}>Cancelar</Button>
         <Button type="submit" loading={loading}>
-          {initial?.id ? 'Save changes' : 'Create deal'}
+          {initial?.id ? 'Guardar cambios' : 'Crear negocio'}
         </Button>
       </div>
     </form>
