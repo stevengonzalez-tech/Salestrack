@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Input from '@/components/ui/Input'
 import Button from '@/components/ui/Button'
+import ActivityTimeline from '@/components/activities/ActivityTimeline'
 import type { Deal, DealStage } from '@/lib/types'
 
 interface DealFormProps {
@@ -74,6 +75,10 @@ export default function DealForm({ initial, onSubmit, onCancel }: DealFormProps)
           {initial?.id ? 'Guardar cambios' : 'Crear negocio'}
         </Button>
       </div>
+
+      {initial?.id && (
+        <ActivityTimeline entityType="deal" entityId={initial.id} />
+      )}
     </form>
   )
 }

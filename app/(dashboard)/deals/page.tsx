@@ -66,7 +66,7 @@ export default function DealsPage() {
       <Modal
         open={modalOpen}
         onClose={() => setModalOpen(false)}
-        title={editing ? 'Edit Deal' : 'Nuevo Negocio'}
+        title={editing ? 'Editar Negocio' : 'Nuevo Negocio'}
         size="md"
       >
         <DealForm

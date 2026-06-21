@@ -37,7 +37,7 @@ export default function LeadsPage() {
   }
 
   async function handleDelete(id: string) {
-    if (confirm('Delete this lead?')) await deleteLead(id)
+    if (confirm('¿Eliminar este prospecto?')) await deleteLead(id)
   }
 
   return (

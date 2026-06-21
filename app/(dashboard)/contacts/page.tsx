@@ -106,11 +106,11 @@ export default function ContactsPage() {
                     <div className="flex gap-3 justify-end">
                       <button className="text-xs text-brand-600 hover:text-brand-700 font-medium"
                         onClick={() => { setEditing(contact); setModalOpen(true) }}>
-                        Edit
+                        Editar
                       </button>
                       <button className="text-xs text-red-500 hover:text-red-600 font-medium"
                         onClick={() => handleDelete(contact.id)}>
-                        Delete
+                        Eliminar
                       </button>
                     </div>
                   </td>

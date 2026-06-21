@@ -3,8 +3,16 @@ import type { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
 import Card, { CardHeader, CardTitle } from '@/components/ui/Card'
 import Badge from '@/components/ui/Badge'
+import ProfileForm from '@/components/settings/ProfileForm'
+import type { Profile } from '@/lib/types'
 
-export const metadata: Metadata = { title: 'Settings' }
+export const metadata: Metadata = { title: 'Configuración' }
+
+const roleLabel: Record<string, string> = {
+  admin:  'Administrador',
+  leader: 'Líder',
+  agent:  'Agente',
+}
 
 export default async function SettingsPage() {
   const supabase = await createClient()
@@ -19,31 +27,25 @@ export default async function SettingsPage() {
     <div className="space-y-6 max-w-3xl mx-auto">
       <div>
         <h1 className="text-2xl font-bold text-slate-900">Configuración</h1>
-        <p className="text-sm text-slate-500 mt-1">Administra la configuración de tu espacio</p>
+        <p className="text-sm text-slate-500 mt-1">Administra tu perfil y espacio de trabajo</p>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Cuenta</CardTitle>
+          <CardTitle>Mi Perfil</CardTitle>
         </CardHeader>
-        <dl className="space-y-4">
-          <div className="flex justify-between text-sm">
-            <dt className="text-slate-500">Nombre</dt>
-            <dd className="font-medium text-slate-900">{profile?.full_name}</dd>
+        <div className="mb-4 flex items-center gap-3">
+          <div className="w-12 h-12 rounded-full bg-brand-600 flex items-center justify-center text-white font-bold text-lg">
+            {profile?.full_name?.split(' ').map((n: string) => n[0]).join('').slice(0, 2).toUpperCase()}
           </div>
-          <div className="flex justify-between text-sm">
-            <dt className="text-slate-500">Correo</dt>
-            <dd className="font-medium text-slate-900">{profile?.email}</dd>
+          <div>
+            <p className="font-semibold text-slate-900">{profile?.full_name}</p>
+            <Badge variant={profile?.role === 'admin' ? 'danger' : profile?.role === 'leader' ? 'warning' : 'info'}>
+              {roleLabel[profile?.role] ?? profile?.role}
+            </Badge>
           </div>
-          <div className="flex justify-between text-sm">
-            <dt className="text-slate-500">Rol</dt>
-            <dd>
-              <Badge variant="danger">
-                {profile?.role?.charAt(0).toUpperCase() + profile?.role?.slice(1)}
-              </Badge>
-            </dd>
-          </div>
-        </dl>
+        </div>
+        {profile && <ProfileForm profile={profile as Profile} />}
       </Card>
 
       <Card>
@@ -56,12 +58,16 @@ export default async function SettingsPage() {
             <Badge variant="purple">Pro</Badge>
           </div>
           <div className="flex justify-between">
-            <span className="text-slate-500">Row Level Security</span>
-            <Badge variant="success">Enabled</Badge>
+            <span className="text-slate-500">Seguridad por Filas (RLS)</span>
+            <Badge variant="success">Activo</Badge>
           </div>
           <div className="flex justify-between">
-            <span className="text-slate-500">Database</span>
+            <span className="text-slate-500">Base de Datos</span>
             <span className="font-medium text-slate-900">Supabase PostgreSQL</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-slate-500">Autenticación</span>
+            <span className="font-medium text-slate-900">Magic Link (sin contraseña)</span>
           </div>
         </div>
       </Card>
@@ -82,14 +88,15 @@ export default async function SettingsPage() {
             </thead>
             <tbody className="divide-y divide-slate-100 text-slate-600">
               {[
-                ['Leads (own)', true, true, true],
-                ['Leads (all)', false, true, true],
-                ['Deals (own)', true, true, true],
-                ['Deals (all)', false, true, true],
-                ['Contacts', true, true, true],
-                ['Reports', false, true, true],
-                ['Team', false, true, true],
-                ['Settings', false, false, true],
+                ['Prospectos (propios)', true, true, true],
+                ['Prospectos (todo el equipo)', false, true, true],
+                ['Negocios (propios)', true, true, true],
+                ['Negocios (todo el equipo)', false, true, true],
+                ['Contactos', true, true, true],
+                ['Gestiones Diarias', true, true, true],
+                ['Reportes', false, true, true],
+                ['Equipo', false, true, true],
+                ['Configuración', false, false, true],
               ].map(([feature, agent, leader, admin]) => (
                 <tr key={String(feature)}>
                   <td className="py-2 pr-4">{feature}</td>

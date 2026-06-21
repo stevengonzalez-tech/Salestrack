@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Input from '@/components/ui/Input'
 import Button from '@/components/ui/Button'
+import ActivityTimeline from '@/components/activities/ActivityTimeline'
 import type { Lead } from '@/lib/types'
 
 interface LeadFormProps {
@@ -82,9 +83,13 @@ export default function LeadForm({ initial, onSubmit, onCancel }: LeadFormProps)
       <div className="flex justify-end gap-3 pt-2">
         <Button type="button" variant="secondary" onClick={onCancel}>Cancelar</Button>
         <Button type="submit" loading={loading}>
-          {initial ? 'Guardar cambios' : 'Crear prospecto'}
+          {initial?.id ? 'Guardar cambios' : 'Crear prospecto'}
         </Button>
       </div>
+
+      {initial?.id && (
+        <ActivityTimeline entityType="lead" entityId={initial.id} />
+      )}
     </form>
   )
 }

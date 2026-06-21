@@ -2,10 +2,11 @@ export const dynamic = 'force-dynamic'
 import type { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
 import Badge from '@/components/ui/Badge'
+import RoleSelector from '@/components/team/RoleSelector'
 import { getInitials, formatDate } from '@/lib/utils'
 import type { UserRole } from '@/lib/types'
 
-export const metadata: Metadata = { title: 'Team' }
+export const metadata: Metadata = { title: 'Equipo' }
 
 const roleVariant: Record<UserRole, 'danger' | 'warning' | 'info'> = {
   admin:  'danger',
@@ -13,8 +14,23 @@ const roleVariant: Record<UserRole, 'danger' | 'warning' | 'info'> = {
   agent:  'info',
 }
 
+const roleLabel: Record<UserRole, string> = {
+  admin:  'Administrador',
+  leader: 'Líder',
+  agent:  'Agente',
+}
+
 export default async function TeamPage() {
   const supabase = await createClient()
+
+  const { data: { user } } = await supabase.auth.getUser()
+  const { data: currentProfile } = await supabase
+    .from('profiles')
+    .select('role')
+    .eq('id', user?.id)
+    .single()
+
+  const isAdmin = currentProfile?.role === 'admin'
 
   const { data: members } = await supabase
     .from('profiles')
@@ -25,9 +41,18 @@ export default async function TeamPage() {
 
   return (
     <div className="space-y-6 max-w-5xl mx-auto">
-      <div>
-        <h1 className="text-2xl font-bold text-slate-900">Equipo</h1>
-        <p className="text-sm text-slate-500 mt-1">{profiles.length} miembros</p>
+      <div className="flex items-start justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-900">Equipo</h1>
+          <p className="text-sm text-slate-500 mt-1">{profiles.length} miembros</p>
+        </div>
+        <div className="card p-4 text-sm text-slate-600 max-w-xs">
+          <p className="font-semibold text-slate-900 mb-1">¿Cómo invitar a alguien?</p>
+          <p className="text-xs text-slate-500">
+            Comparte la URL de la app. Al ingresar con su correo corporativo, el sistema crea su cuenta automáticamente como Agente.
+            {isAdmin && ' Luego puedes cambiar su rol desde aquí.'}
+          </p>
+        </div>
       </div>
 
       <div className="card overflow-hidden" style={{ padding: 0 }}>
@@ -54,9 +79,13 @@ export default async function TeamPage() {
                   </div>
                 </td>
                 <td className="px-6 py-4">
-                  <Badge variant={roleVariant[p.role as UserRole]}>
-                    {p.role.charAt(0).toUpperCase() + p.role.slice(1)}
-                  </Badge>
+                  {isAdmin && p.id !== user?.id ? (
+                    <RoleSelector userId={p.id} currentRole={p.role as UserRole} />
+                  ) : (
+                    <Badge variant={roleVariant[p.role as UserRole]}>
+                      {roleLabel[p.role as UserRole]}
+                    </Badge>
+                  )}
                 </td>
                 <td className="px-6 py-4 text-slate-500">{formatDate(p.created_at)}</td>
               </tr>

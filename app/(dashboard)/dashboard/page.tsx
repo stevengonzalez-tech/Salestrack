@@ -6,32 +6,65 @@ import RecentActivity from '@/components/dashboard/RecentActivity'
 import { formatCurrency } from '@/lib/utils'
 
 export const dynamic = 'force-dynamic'
-export const metadata: Metadata = { title: 'Dashboard' }
+export const metadata: Metadata = { title: 'Panel' }
+
+const MONTH_LABELS = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
 
 export default async function DashboardPage() {
   const supabase = await createClient()
 
-  const [leadsRes, dealsRes, activitiesRes] = await Promise.all([
+  const sixMonthsAgo = new Date()
+  sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 5)
+  sixMonthsAgo.setDate(1)
+
+  const [leadsRes, dealsRes, activitiesRes, wonDealsRes] = await Promise.all([
     supabase.from('leads').select('id, created_at, status'),
     supabase.from('deals').select('id, value, stage, created_at'),
     supabase.from('activities').select('*').order('created_at', { ascending: false }).limit(10),
+    supabase
+      .from('deals')
+      .select('value, created_at')
+      .eq('stage', 'closed_won')
+      .gte('created_at', sixMonthsAgo.toISOString()),
   ])
 
   const leads = leadsRes.data ?? []
   const deals = dealsRes.data ?? []
   const activities = activitiesRes.data ?? []
+  const wonDeals = wonDealsRes.data ?? []
 
   const now = new Date()
   const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).toISOString()
 
   const leadsThisMonth = leads.filter((l) => l.created_at >= startOfMonth).length
-  const wonDeals = deals.filter((d) => d.stage === 'closed_won')
-  const wonThisMonth = wonDeals.filter((d) => d.created_at >= startOfMonth)
-  const revenueTotal = wonDeals.reduce((s, d) => s + d.value, 0)
+  const allWon = deals.filter((d) => d.stage === 'closed_won')
+  const wonThisMonth = allWon.filter((d) => d.created_at >= startOfMonth)
+  const revenueTotal = allWon.reduce((s, d) => s + d.value, 0)
   const revenueThisMonth = wonThisMonth.reduce((s, d) => s + d.value, 0)
   const conversionRate = leads.length > 0
-    ? Math.round((wonDeals.length / leads.length) * 100)
+    ? Math.round((allWon.length / leads.length) * 100)
     : 0
+
+  // Build last 6 months chart data from real closed_won deals
+  const monthlyMap: Record<string, { revenue: number; deals: number }> = {}
+  for (let i = 5; i >= 0; i--) {
+    const d = new Date()
+    d.setMonth(d.getMonth() - i)
+    const key = `${d.getFullYear()}-${String(d.getMonth()).padStart(2, '0')}`
+    monthlyMap[key] = { revenue: 0, deals: 0 }
+  }
+  wonDeals.forEach((deal) => {
+    const d = new Date(deal.created_at)
+    const key = `${d.getFullYear()}-${String(d.getMonth()).padStart(2, '0')}`
+    if (monthlyMap[key]) {
+      monthlyMap[key].revenue += deal.value
+      monthlyMap[key].deals += 1
+    }
+  })
+  const chartData = Object.entries(monthlyMap).map(([key, val]) => {
+    const [, monthIdx] = key.split('-')
+    return { month: MONTH_LABELS[Number(monthIdx)], ...val }
+  })
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
@@ -90,10 +123,25 @@ export default async function DashboardPage() {
 
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
         <div className="xl:col-span-2">
-          <SalesChart />
+          <SalesChart data={chartData} />
         </div>
         <div>
           <RecentActivity activities={activities} />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="card p-5">
+          <p className="text-sm font-semibold text-slate-700 mb-1">Ingresos Totales</p>
+          <p className="text-3xl font-bold text-emerald-600">{formatCurrency(revenueTotal)}</p>
+          <p className="text-xs text-slate-400 mt-1">Todos los negocios cerrados</p>
+        </div>
+        <div className="card p-5">
+          <p className="text-sm font-semibold text-slate-700 mb-1">Pipeline Activo</p>
+          <p className="text-3xl font-bold text-brand-600">
+            {formatCurrency(deals.filter((d) => !['closed_won','closed_lost'].includes(d.stage)).reduce((s,d) => s+d.value, 0))}
+          </p>
+          <p className="text-xs text-slate-400 mt-1">Valor en negociación</p>
         </div>
       </div>
     </div>
